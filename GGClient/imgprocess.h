@@ -2,6 +2,7 @@
 #include <vector>
 #include <opencv2\core\core.hpp>
 
+extern int jpeg_quality;
 extern int width;
 extern int height;
 

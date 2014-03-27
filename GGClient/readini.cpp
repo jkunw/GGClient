@@ -6,10 +6,14 @@ using namespace std;
 
 const char *ini_name = ".\\config.ini";
 
-/* Parse initialization file to get window name and IP address.
+/* Parse initialization file to get 
+1. window name;
+2. IP address;
+3. JPEG compress quality;
+4. Process or not;
 Create a new one and return false if ini file does not exist.
 */
-bool parse_ini(string &win_name, string &ip, int &process) {
+bool parse_ini(string &win_name, string &ip, int &process, int &jpeg_quality) {
 	char *buff = new char[20]();
 
     // Get window title.
@@ -29,5 +33,9 @@ bool parse_ini(string &win_name, string &ip, int &process) {
 
     // Get process flag.
     process = GetPrivateProfileInt("Image", "Process", 1, ini_name);
+
+    // Get JPEG compress quality.
+    jpeg_quality = GetPrivateProfileInt("Image", "ImageQuality", 5, ini_name);
+
 	return true;
 }

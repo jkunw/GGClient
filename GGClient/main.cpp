@@ -11,7 +11,6 @@
 using namespace std;
 
 /* Get src image through window-capture.
-
 */
 int get_src_capture(unsigned char* &img_data,  int color) {
 	cv::Mat src;
@@ -26,7 +25,7 @@ int main() {
     // If `process` is set to 0, color image is captured and 
     // sent to server; server will show the color image without processing it.
     int process;  
-	if(!parse_ini(win_name, ip, process))
+	if(!parse_ini(win_name, ip, process, jpeg_quality))
 		return 1;
 
 	// Set the function to get src image.

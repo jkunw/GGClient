@@ -53,9 +53,9 @@ vector<Point2f> ccw_dst_points = {Point2f(-CELL_SIZE            , -CELL_SIZE),
 								  Point2f(GLYPH_SIZE + CELL_SIZE, GLYPH_SIZE + CELL_SIZE),
 								  Point2f(GLYPH_SIZE + CELL_SIZE, -CELL_SIZE)};
 
-const int JPEG_QUALITY = 5;   // Compress JPEG quality.
-int width              = 640; // Width of image.
-int height             = 480; // Height of image.
+int jpeg_quality = 5;   // Compress JPEG quality.
+int width        = 640; // Width of image.
+int height       = 480; // Height of image.
 
 vector<unsigned char> buff; // Buff is used to store converted image data.
 
@@ -183,7 +183,7 @@ int img_encode(const Mat &img, unsigned char* &img_data) {
 	// Set compress quality.
 	vector<int> p;
 	p.push_back(CV_IMWRITE_JPEG_QUALITY);
-	p.push_back(JPEG_QUALITY);
+	p.push_back(jpeg_quality);
 
 	imencode(".jpg", img, buff, p);
 	img_data = reinterpret_cast<unsigned char*>(buff.data());
