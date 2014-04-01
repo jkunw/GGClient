@@ -4,7 +4,9 @@
 
 using namespace std;
 
-const char *ini_name = ".\\config.ini";
+const char *ini_name          = ".\\config.ini";
+const int TRANSLATION_EPSILON = 5;
+const int ZOOM_EPSILON        = 1;
 
 /* Parse initialization file to get 
 1. window name;
@@ -13,7 +15,7 @@ const char *ini_name = ".\\config.ini";
 4. Process or not;
 Create a new one and return false if ini file does not exist.
 */
-bool parse_ini(string &win_name, string &ip, int &process, int &jpeg_quality) {
+bool parse_ini(string &win_name, string &ip, int &process, int &jpeg_quality, int &zoom, int &x, int &y) {
 	char *buff = new char[20]();
 
     // Get window title.
@@ -37,5 +39,55 @@ bool parse_ini(string &win_name, string &ip, int &process, int &jpeg_quality) {
     // Get JPEG compress quality.
     jpeg_quality = GetPrivateProfileInt("Image", "ImageQuality", 5, ini_name);
 
+    // Get zoom and translation value.
+    zoom = GetPrivateProfileInt("Image", "Zoom", 10, ini_name);
+    x = GetPrivateProfileInt("Image", "X", 500, ini_name);
+    y = GetPrivateProfileInt("Image", "Y", 500, ini_name);
+
 	return true;
+}
+
+/* Save current zoom in/out and translation value to `config.ini`.
+*/
+void set_TM(char key) {
+    char buff[20];
+    int x, y, zoom;
+    switch(key) {
+    case 'L':
+        x = GetPrivateProfileInt("Image", "X", 500, ini_name);
+        x -= TRANSLATION_EPSILON;
+        itoa(x, buff, 10);
+        WritePrivateProfileString("Image", "X", buff, ini_name);
+        break;
+    case 'R':
+        x = GetPrivateProfileInt("Image", "X", 500, ini_name);
+        x += TRANSLATION_EPSILON;
+        itoa(x, buff, 10);
+        WritePrivateProfileString("Image", "X", buff, ini_name);
+        break;
+    case 'U':
+        y = GetPrivateProfileInt("Image", "Y", 500, ini_name);
+        y -= TRANSLATION_EPSILON;
+        itoa(y, buff, 10);
+        WritePrivateProfileString("Image", "Y", buff, ini_name);
+        break;
+    case 'D':
+        y = GetPrivateProfileInt("Image", "Y", 500, ini_name);
+        y += TRANSLATION_EPSILON;
+        itoa(y, buff, 10);
+        WritePrivateProfileString("Image", "Y", buff, ini_name);
+        break;
+    case 'I':
+        zoom = GetPrivateProfileInt("Image", "Zoom", 10, ini_name);
+        zoom += ZOOM_EPSILON;
+        itoa(zoom, buff, 10);
+        WritePrivateProfileString("Image", "Zoom", buff, ini_name);
+        break;
+    case 'O':
+        zoom = GetPrivateProfileInt("Image", "Zoom", 10, ini_name);
+        zoom -= ZOOM_EPSILON;
+        itoa(zoom, buff, 10);
+        WritePrivateProfileString("Image", "Zoom", buff, ini_name);
+        break;
+    }
 }

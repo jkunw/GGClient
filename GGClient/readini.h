@@ -1,4 +1,5 @@
 #pragma once
 #include <string>
 
-bool parse_ini(std::string &win_name, std::string &ip, int &process, int &jpeg_quality);
+bool parse_ini(std::string&, std::string&, int&, int&, int&, int&, int&);
+void set_TM(char key);

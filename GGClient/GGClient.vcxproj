@@ -86,12 +86,14 @@
   <ItemGroup>
     <ClInclude Include="ggclient.h" />
     <ClInclude Include="imgprocess.h" />
+    <ClInclude Include="keyevent.h" />
     <ClInclude Include="readini.h" />
     <ClInclude Include="windowcapture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ggclient.cpp" />
     <ClCompile Include="imgprocess.cpp" />
+    <ClCompile Include="keyevent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="readini.cpp" />
     <ClCompile Include="windowcapture.cpp" />
